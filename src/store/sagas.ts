@@ -12,7 +12,6 @@ import {
   FetchPointsAction,
   AddPointAction
 } from './actions';
-import moment from 'moment';
 
 function* watchFetchPoints() {
   yield takeEvery(FETCH_POINTS, function* fetchPointsWorker(
