@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { FormEvent } from 'react';
 import { scaleTime, scaleLinear } from 'd3-scale';
 import Chart, { LineChart, ScatterPlot } from './components/Charts';
+import Button from './components/Button';
+import Input from './components/Input';
 import { Point } from './components/Charts/contracts';
+import './App.css';
+import AddPointForm from './AddPointForm';
 
 interface Props {
   data: Point[];
+}
+
+interface State {
+  data: Point[];
+  newX: string;
+  newY: string;
 }
 
 class App extends React.Component<any, any> {
@@ -15,24 +25,22 @@ class App extends React.Component<any, any> {
     };
   }
 
-  add = () => {
-    const p = {
-      x: '2018-04-17T12:45:03+04:00',
-      y: 15
-    };
-
-    const newData = [...this.state.data, p].sort(
-      (d1, d2) => new Date(d1.x).getTime() - new Date(d2.x).getTime()
-    );
-    this.setState({ data: newData });
+  onNewPoint = (newPoint: Point) => {
+    this.setState({
+      data: [...this.state.data, newPoint].sort(
+        (d1, d2) => new Date(d1.x).getTime() - new Date(d2.x).getTime()
+      )
+    });
   };
 
   render() {
     const { data } = this.state;
 
     return (
-      <>
-        <button onClick={this.add}>Add</button>
+      <main>
+        <section className="add-point">
+          <AddPointForm onSubmit={this.onNewPoint} />
+        </section>
         <Chart
           width={600}
           height={300}
@@ -45,7 +53,7 @@ class App extends React.Component<any, any> {
           <LineChart />
           <ScatterPlot />
         </Chart>
-      </>
+      </main>
     );
   }
 }
