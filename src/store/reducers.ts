@@ -67,10 +67,23 @@ const isAddingPoint = (state = false, action: ActionTypes): boolean => {
   }
 };
 
+const shouldClearAddPointForm = (
+  state = false,
+  action: ActionTypes
+): boolean => {
+  switch (action.type) {
+    case ADD_POINT_SUCCESS:
+      return true;
+    default:
+      return state;
+  }
+};
+
 export const reducers = {
   points,
   addError,
   fetchError,
   isFetchingPoints,
-  isAddingPoint
+  isAddingPoint,
+  shouldClearAddPointForm
 };

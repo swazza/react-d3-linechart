@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { Store } from '../store';
 import { Form, Field } from 'react-final-form';
 
 const required = (value: any) => (value ? undefined : 'Required');
@@ -10,14 +12,23 @@ const mustBeISODate = (value: any) =>
 const composeValidators = (...validators: any[]) => (value: any) =>
   validators.reduce((error, validator) => error || validator(value), undefined);
 
-interface Props {
+interface OwnProps {
   onSubmit: any;
 }
 
-const AddPointForm: React.FC<Props> = ({ onSubmit }) => (
+interface StoreProps {
+  shouldClearAddPointForm: boolean;
+}
+
+interface Props extends OwnProps, StoreProps {}
+
+const AddPointForm: React.FC<Props> = ({
+  onSubmit,
+  shouldClearAddPointForm
+}) => (
   <Form
     onSubmit={onSubmit}
-    render={({ handleSubmit, pristine, invalid, submitting }) => (
+    render={({ handleSubmit, submitting, form }) => (
       <form
         onSubmit={handleSubmit}
         style={{
@@ -28,6 +39,7 @@ const AddPointForm: React.FC<Props> = ({ onSubmit }) => (
           position: 'relative'
         }}
       >
+        {shouldClearAddPointForm && form.reset()}
         <h2 style={{ marginRight: 'auto' }}>Add Point</h2>
         <Field name="x" validate={composeValidators(required, mustBeISODate)}>
           {({ input, meta }) => (
@@ -130,4 +142,8 @@ const AddPointForm: React.FC<Props> = ({ onSubmit }) => (
   />
 );
 
-export default AddPointForm;
+const mapStateToProps = (state: Store): StoreProps => ({
+  shouldClearAddPointForm: state.shouldClearAddPointForm
+});
+
+export default connect(mapStateToProps)(AddPointForm);
