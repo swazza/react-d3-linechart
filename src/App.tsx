@@ -19,10 +19,10 @@ class App extends React.Component<Props> {
   render() {
     return (
       <main>
-        <section className="add-point" style={{ position: 'relative' }}>
+        <section>
           <AddPointSection />
         </section>
-        <section style={{ position: 'relative' }}>
+        <section>
           <ChartSection />
         </section>
       </main>

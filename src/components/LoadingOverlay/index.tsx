@@ -24,7 +24,8 @@ const LoadingOverlay: React.FC<Props> = ({ isLoading }) =>
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 10
+        zIndex: 10,
+        top: 0
       }}
     >
       <LoadingBars />
