@@ -25,12 +25,24 @@ export default class YAxis extends React.Component<Props> {
 
   componentDidMount() {
     const axis = axisLeft(this.props.scaleY);
-    select(this.ref.current).call(axis);
+    select(this.ref.current)
+      .call(axis)
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('fill', 'black')
+      .attr('y', -40)
+      .attr('x', -150)
+      .attr('dy', '1em')
+      .style('text-anchor', 'middle')
+      .text('Value');
   }
 
   render() {
     return (
-      <g ref={this.ref} transform={`translate(${this.props.hTransform}, 0)`} />
+      <g
+        ref={this.ref}
+        transform={`translate(${this.props.hTransform + 20}, 0)`}
+      />
     );
   }
 }

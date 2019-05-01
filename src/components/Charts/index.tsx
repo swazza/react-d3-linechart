@@ -25,8 +25,8 @@ class Chart extends React.PureComponent<Props> {
 
     const domainX = extent(data.map(datum => selectorX(datum)));
     const domainY = extent(data.map(datum => selectorY(datum)));
-    const rangeX = [20, this.props.width - 20];
-    const rangeY = [this.props.height - 20, 20];
+    const rangeX = [40, this.props.width - 40];
+    const rangeY = [this.props.height - 40, 40];
     const scaleX = scaleXFn()
       .domain(domainX)
       .range(rangeX);

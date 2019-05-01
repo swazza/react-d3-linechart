@@ -25,12 +25,21 @@ export default class XAxis extends React.Component<Props> {
 
   componentDidMount() {
     const axis = axisBottom(this.props.scaleX);
-    select(this.ref.current).call(axis);
+    select(this.ref.current)
+      .call(axis)
+      .append('text')
+      .attr('fill', 'black')
+      .attr('transform', 'translate(300, 30)')
+      .style('text-anchor', 'middle')
+      .text('Date & Time');
   }
 
   render() {
     return (
-      <g ref={this.ref} transform={`translate(0, ${this.props.vTransform})`} />
+      <g
+        ref={this.ref}
+        transform={`translate(0, ${this.props.vTransform - 20})`}
+      />
     );
   }
 }
