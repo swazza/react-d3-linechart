@@ -2,9 +2,22 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { sagas } from './sagas';
 import { reducers } from './reducers';
+import { Point } from '../components/Charts/contracts';
 
-const initStore = {
-  points: []
+export interface Store {
+  points: Point[];
+  isFetchingPoints: boolean;
+  isAddingPoint: boolean;
+  addError: string;
+  fetchError: string;
+}
+
+const initStore: Store = {
+  points: [],
+  isFetchingPoints: false,
+  isAddingPoint: false,
+  addError: '',
+  fetchError: ''
 };
 
 export const getStore = () => {

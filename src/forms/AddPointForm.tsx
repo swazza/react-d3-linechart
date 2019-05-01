@@ -24,7 +24,8 @@ const AddPointForm: React.FC<Props> = ({ onSubmit }) => (
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          minWidth: '200px'
+          minWidth: '200px',
+          position: 'relative'
         }}
       >
         <h2 style={{ marginRight: 'auto' }}>Add Point</h2>

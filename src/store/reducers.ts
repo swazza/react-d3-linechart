@@ -1,14 +1,76 @@
-import { ActionTypes, SET_POINTS, ADD_POINT } from './actions';
+import {
+  ActionTypes,
+  FETCH_POINTS,
+  ADD_POINT,
+  ADD_POINT_SUCCESS,
+  FETCH_POINTS_SUCCESS,
+  ADD_POINT_ERROR,
+  FETCH_POINTS_ERROR,
+  ADD_POINT_OPTIMISTIC_SUCCESS
+} from './actions';
+import { Point } from '../components/Charts/contracts';
 
-const points = (state = [], action: ActionTypes) => {
+const points = (state = [], action: ActionTypes): Point[] => {
   switch (action.type) {
-    case SET_POINTS:
+    case ADD_POINT_SUCCESS:
+    case FETCH_POINTS_SUCCESS:
+    case ADD_POINT_OPTIMISTIC_SUCCESS:
+      return action.payload;
+    case ADD_POINT_ERROR:
+      return action.payload.prevPoints;
+    default:
+      return state;
+  }
+};
+
+const addError = (state = '', action: ActionTypes): string => {
+  switch (action.type) {
+    case ADD_POINT:
+      return '';
+    case ADD_POINT_ERROR:
+      return action.payload.error;
+    default:
+      return state;
+  }
+};
+
+const fetchError = (state = '', action: ActionTypes): string => {
+  switch (action.type) {
+    case FETCH_POINTS_ERROR:
       return action.payload;
     default:
       return state;
   }
 };
 
+const isFetchingPoints = (state = false, action: ActionTypes): boolean => {
+  switch (action.type) {
+    case FETCH_POINTS:
+      return true;
+    case FETCH_POINTS_SUCCESS:
+    case FETCH_POINTS_ERROR:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const isAddingPoint = (state = false, action: ActionTypes): boolean => {
+  switch (action.type) {
+    case ADD_POINT:
+      return true;
+    case ADD_POINT_SUCCESS:
+    case ADD_POINT_ERROR:
+      return false;
+    default:
+      return state;
+  }
+};
+
 export const reducers = {
-  points
+  points,
+  addError,
+  fetchError,
+  isFetchingPoints,
+  isAddingPoint
 };

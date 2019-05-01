@@ -3,8 +3,12 @@ import { call, put, select, all } from 'redux-saga/effects';
 import { fetchPoints, addPoint } from '../api';
 import {
   FETCH_POINTS,
+  fetchPointsSuccess,
+  fetchPointsError,
   ADD_POINT,
-  setPoints,
+  addPointSuccess,
+  addPointError,
+  addPointOptimisticSuccess,
   FetchPointsAction,
   AddPointAction
 } from './actions';
@@ -13,12 +17,18 @@ function* watchFetchPoints() {
   yield takeEvery(FETCH_POINTS, function* fetchPointsWorker(
     action: FetchPointsAction
   ) {
-    let result = yield call(fetchPoints);
-    let points = result.values
-      .map((d: any) => ({ x: new Date(d.x).getTime(), y: d.y }))
-      .sort((d1: any, d2: any) => d1.x - d2.x);
+    try {
+      let result = yield call(fetchPoints);
+      let points = result.values
+        .map((d: any) => ({ x: new Date(d.x).getTime(), y: d.y }))
+        .sort((d1: any, d2: any) => d1.x - d2.x);
 
-    yield put(setPoints(points));
+      yield put(fetchPointsSuccess(points));
+    } catch (err) {
+      yield put(
+        fetchPointsError('Unable to fetch points. Please try again later.')
+      );
+    }
   });
 }
 
@@ -31,8 +41,18 @@ function* watchAddPoint() {
       { x: new Date(payload.x).getTime(), y: payload.y }
     ].sort((d1, d2) => d1.x - d2.x);
 
-    yield put(setPoints(newPoints));
-    let result = yield call(addPoint, payload);
+    yield put(addPointOptimisticSuccess(newPoints));
+    try {
+      yield call(addPoint, payload);
+      yield put(addPointSuccess(newPoints));
+    } catch (err) {
+      yield put(
+        addPointError(
+          'Error saving point. Restoring chart to previous state.',
+          points
+        )
+      );
+    }
   });
 }
 

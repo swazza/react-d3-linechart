@@ -7,6 +7,10 @@ main {
   align-items: center;
 }
 
+main > section {
+  flex: 1;
+}
+
 main > section,
 .add-point {
   display: flex;
