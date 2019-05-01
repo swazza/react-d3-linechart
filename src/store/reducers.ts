@@ -6,7 +6,8 @@ import {
   FETCH_POINTS_SUCCESS,
   ADD_POINT_ERROR,
   FETCH_POINTS_ERROR,
-  ADD_POINT_OPTIMISTIC_SUCCESS
+  ADD_POINT_OPTIMISTIC_SUCCESS,
+  CLEAR_NOTIFICATION
 } from './actions';
 import { Point } from '../components/Charts/contracts';
 
@@ -79,11 +80,23 @@ const shouldClearAddPointForm = (
   }
 };
 
+const notification = (state = '', action: ActionTypes): string => {
+  switch (action.type) {
+    case ADD_POINT_SUCCESS:
+      return 'Point successfully saved.';
+    case CLEAR_NOTIFICATION:
+      return '';
+    default:
+      return state;
+  }
+};
+
 export const reducers = {
   points,
   addError,
   fetchError,
   isFetchingPoints,
   isAddingPoint,
-  shouldClearAddPointForm
+  shouldClearAddPointForm,
+  notification
 };

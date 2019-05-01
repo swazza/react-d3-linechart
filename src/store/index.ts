@@ -11,6 +11,7 @@ export interface Store {
   addError: string;
   fetchError: string;
   shouldClearAddPointForm: boolean;
+  notification: string;
 }
 
 const initStore: Store = {
@@ -19,7 +20,8 @@ const initStore: Store = {
   isAddingPoint: false,
   addError: '',
   fetchError: '',
-  shouldClearAddPointForm: false
+  shouldClearAddPointForm: false,
+  notification: ''
 };
 
 export const getStore = () => {

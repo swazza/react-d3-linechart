@@ -92,6 +92,17 @@ export const fetchPointsError = (error: string): FetchPointsErrorAction => ({
   payload: error
 });
 
+// Actions & Action Creators for Notifications
+export const CLEAR_NOTIFICATION = 'CLEAR_NOTIFICATION';
+
+export interface ClearNotificationAction {
+  type: typeof CLEAR_NOTIFICATION;
+}
+
+export const clearNotification = (): ClearNotificationAction => ({
+  type: CLEAR_NOTIFICATION
+});
+
 // Exporting a union of all action types makes it easier for the reducer to switch on types
 export type ActionTypes =
   | AddPointAction
@@ -100,4 +111,5 @@ export type ActionTypes =
   | AddPointOptimsticSuccess
   | FetchPointsAction
   | FetchPointsSuccessAction
-  | FetchPointsErrorAction;
+  | FetchPointsErrorAction
+  | ClearNotificationAction;

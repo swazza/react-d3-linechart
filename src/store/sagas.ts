@@ -1,5 +1,5 @@
 import { takeEvery } from 'redux-saga/effects';
-import { call, put, select, all } from 'redux-saga/effects';
+import { call, put, select, all, delay } from 'redux-saga/effects';
 import { fetchPoints, addPoint } from '../api';
 import {
   FETCH_POINTS,
@@ -10,7 +10,8 @@ import {
   addPointError,
   addPointOptimisticSuccess,
   FetchPointsAction,
-  AddPointAction
+  AddPointAction,
+  clearNotification
 } from './actions';
 
 function* watchFetchPoints() {
@@ -45,6 +46,8 @@ function* watchAddPoint() {
     try {
       yield call(addPoint, payload);
       yield put(addPointSuccess(newPoints));
+      yield delay(3000);
+      yield put(clearNotification());
     } catch (err) {
       yield put(
         addPointError(
