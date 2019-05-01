@@ -114,7 +114,7 @@ const AddPointForm: React.FC<Props> = ({ onSubmit }) => (
 
         <button
           type="submit"
-          disabled={pristine || invalid || submitting}
+          disabled={submitting}
           style={{
             marginTop: '5px',
             height: '2.5em',
