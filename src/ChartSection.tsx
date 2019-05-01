@@ -29,7 +29,7 @@ const ChartSection: React.FC<Props> = ({
       selectorY={(d: any) => d.y}
       tooltipX={(d: any) =>
         moment(d.x)
-          .tz('GMT')
+          .tz('UTC') // This ensures that time on tooltip is displayed in UTC time (not local time)
           .format('Do MMM, YYYYTHH:mm:ss.sss')
       }
       tooltipY={(d: any) => d.y}
