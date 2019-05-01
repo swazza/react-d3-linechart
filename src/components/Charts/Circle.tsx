@@ -1,19 +1,49 @@
 import React from 'react';
 import * as d3 from 'd3';
+import TooltipPortal from './TooltipPortal';
+import Tooltip from './Tooltip';
+import { Point } from './contracts';
 
 interface Props {
   cx: number;
   cy: number;
   r: number;
+  datum: Point;
+  tooltipX: any;
+  tooltipY: any;
 }
 
-export default class Circle extends React.Component<Props> {
+interface State {
+  showTooltip: boolean;
+  tooltipCX: number;
+  tooltipCY: number;
+}
+
+export default class Circle extends React.Component<Props, State> {
   private ref: React.RefObject<any>;
 
   constructor(props: Props) {
     super(props);
     this.ref = React.createRef();
+    this.state = {
+      showTooltip: false,
+      tooltipCX: 0,
+      tooltipCY: 0
+    };
   }
+
+  onMouseOver = (e: any) => {
+    const { x, y } = e.target.getBoundingClientRect();
+    this.setState({
+      showTooltip: true,
+      tooltipCX: x,
+      tooltipCY: y
+    });
+  };
+
+  onMouseLeave = () => {
+    this.setState({ showTooltip: false });
+  };
 
   componentDidUpdate() {
     const circle = d3.select(this.ref.current);
@@ -35,15 +65,29 @@ export default class Circle extends React.Component<Props> {
   }
 
   render() {
-    const { r } = this.props;
+    const { r, tooltipX, tooltipY, datum } = this.props;
+    const { showTooltip, tooltipCX, tooltipCY } = this.state;
     return (
-      // cx & cy attributes not specified intentionally as they will be manipulated by d3 for transitions
-      <circle
-        ref={this.ref} // gets ref to the mounted DOMNode
-        r={r} // radius
-        fill="black" // fill circle with black color
-        opacity={0} // initial opacity is 0. this attribute will be manipulated later by d3 in cDM & cDU lifecycles
-      />
+      <>
+        {showTooltip && (
+          <TooltipPortal>
+            <Tooltip
+              cx={tooltipCX + 2 * r}
+              cy={tooltipCY + 2 * r}
+              x={tooltipX(datum)}
+              y={tooltipY(datum)}
+            />
+          </TooltipPortal>
+        )}
+        <circle
+          ref={this.ref} // gets ref to the mounted DOMNode
+          r={r} // radius
+          fill="black" // fill circle with black color
+          opacity={0} // initial opacity is 0. this attribute will be manipulated later by d3 in cDM & cDU lifecycles
+          onMouseOver={this.onMouseOver}
+          onMouseLeave={this.onMouseLeave}
+        />
+      </>
     );
   }
 }

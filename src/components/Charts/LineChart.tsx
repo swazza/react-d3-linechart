@@ -4,6 +4,7 @@ import { Point } from './contracts';
 
 interface Props {
   data?: Point[];
+  scaledData?: Point[];
 }
 
 const lineGenerator = d3
@@ -28,14 +29,14 @@ export default class Line extends React.Component<Props> {
       .duration(750)
       .attr('opacity', 1)
       // @ts-ignore
-      .attr('d', lineGenerator(this.props.data));
+      .attr('d', lineGenerator(this.props.scaledData));
   }
 
   componentDidMount() {
     const path = d3.select(this.ref.current);
     path
       // @ts-ignore
-      .attr('d', lineGenerator(this.props.data))
+      .attr('d', lineGenerator(this.props.scaledData))
       .transition()
       .duration(750)
       .attr('opacity', 1);

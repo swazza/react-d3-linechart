@@ -4,12 +4,28 @@ import { Point } from './contracts';
 
 interface Props {
   data?: Point[];
+  scaledData?: Point[];
+  tooltipX?: any;
+  tooltipY?: any;
 }
 
-const ScatterPlot: React.FC<Props> = ({ data = [] }) => (
+const ScatterPlot: React.FC<Props> = ({
+  data = [],
+  scaledData = [],
+  tooltipX,
+  tooltipY
+}) => (
   <g>
-    {data.map((datum, index) => (
-      <Circle key={index} r={5} cx={datum.x} cy={datum.y} />
+    {scaledData.map((datum, index) => (
+      <Circle
+        key={index}
+        r={5}
+        cx={datum.x}
+        cy={datum.y}
+        datum={data[index]}
+        tooltipX={tooltipX}
+        tooltipY={tooltipY}
+      />
     ))}
   </g>
 );

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { scaleTime, scaleLinear } from 'd3-scale';
+import { scaleUtc, scaleLinear } from 'd3-scale';
+import moment from 'moment';
 import { Point } from './components/Charts/contracts';
 import LoadingOverlay from './components/LoadingOverlay';
 import { Store } from './store';
@@ -26,7 +27,9 @@ const ChartSection: React.FC<Props> = ({
       data={data}
       selectorX={(d: any) => new Date(d.x).getTime()}
       selectorY={(d: any) => d.y}
-      scaleXFn={scaleTime}
+      tooltipX={(d: any) => moment(d.x).format('Do MMM, YYYYTHH:mm:ss.sss')}
+      tooltipY={(d: any) => d.y}
+      scaleXFn={scaleUtc}
       scaleYFn={scaleLinear}
     >
       <LineChart />

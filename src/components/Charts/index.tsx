@@ -14,6 +14,8 @@ interface Props {
   selectorY: any;
   scaleXFn: any;
   scaleYFn: any;
+  tooltipX: any;
+  tooltipY: any;
   children: React.ReactNode;
 }
 
@@ -41,7 +43,7 @@ class Chart extends React.PureComponent<Props> {
   }
 
   render() {
-    const { height, width, children } = this.props;
+    const { data, height, width, children, tooltipX, tooltipY } = this.props;
     const { scaledData, scaleX, scaleY } = this.getScaledDataFromProps(
       this.props
     );
@@ -53,7 +55,10 @@ class Chart extends React.PureComponent<Props> {
           <YAxis scaleY={scaleY} hTransform={20} />
           {React.Children.map(children, child =>
             React.cloneElement(child as React.ReactElement<any>, {
-              data: scaledData
+              data,
+              scaledData,
+              tooltipX,
+              tooltipY
             })
           )}
         </svg>
