@@ -1,45 +1,31 @@
 import React, { FormEvent } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { scaleTime, scaleLinear } from 'd3-scale';
 import Chart, { LineChart, ScatterPlot } from './components/Charts';
-import Button from './components/Button';
-import Input from './components/Input';
 import { Point } from './components/Charts/contracts';
 import './App.css';
 import AddPointForm from './AddPointForm';
+import { addPoint, fetchPoints } from './store/actions';
 
 interface Props {
   data: Point[];
+  addPoint: typeof addPoint;
+  fetchPoints: typeof fetchPoints;
 }
 
-interface State {
-  data: Point[];
-  newX: string;
-  newY: string;
-}
-
-class App extends React.Component<any, any> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      data: props.data
-    };
+class App extends React.Component<Props> {
+  componentDidMount() {
+    this.props.fetchPoints();
   }
 
-  onNewPoint = (newPoint: Point) => {
-    this.setState({
-      data: [...this.state.data, newPoint].sort(
-        (d1, d2) => new Date(d1.x).getTime() - new Date(d2.x).getTime()
-      )
-    });
-  };
-
   render() {
-    const { data } = this.state;
+    const { data, addPoint } = this.props;
 
     return (
       <main>
         <section className="add-point">
-          <AddPointForm onSubmit={this.onNewPoint} />
+          <AddPointForm onSubmit={addPoint} />
         </section>
         <Chart
           width={600}
@@ -58,4 +44,14 @@ class App extends React.Component<any, any> {
   }
 }
 
-export default App;
+const mapStateToProps = (state: any) => ({
+  data: state.points
+});
+
+const mapDispatchToProps = (dispatch: any) =>
+  bindActionCreators({ addPoint, fetchPoints }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);

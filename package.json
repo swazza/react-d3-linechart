@@ -14,7 +14,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-final-form": "^4.1.0",
-    "react-redux": "^7.0.2",
+    "react-redux": "^7.0.3",
     "react-scripts": "3.0.0",
     "redux": "^4.0.1",
     "redux-saga": "^1.0.2",
@@ -43,6 +43,7 @@
   },
   "devDependencies": {
     "@types/d3": "^5.7.2",
-    "@types/d3-array": "^2.0.0"
+    "@types/d3-array": "^2.0.0",
+    "@types/react-redux": "^7.0.8"
   }
 }
