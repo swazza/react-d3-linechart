@@ -7,7 +7,8 @@ import {
   ADD_POINT_ERROR,
   FETCH_POINTS_ERROR,
   ADD_POINT_OPTIMISTIC_SUCCESS,
-  CLEAR_NOTIFICATION
+  CLEAR_NOTIFICATION,
+  RESET_ADD_POINT_FORM
 } from './actions';
 import { Point } from '../components/Charts/contracts';
 
@@ -75,6 +76,8 @@ const shouldClearAddPointForm = (
   switch (action.type) {
     case ADD_POINT_SUCCESS:
       return true;
+    case RESET_ADD_POINT_FORM:
+      return false;
     default:
       return state;
   }

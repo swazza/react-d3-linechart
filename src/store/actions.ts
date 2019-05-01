@@ -103,6 +103,17 @@ export const clearNotification = (): ClearNotificationAction => ({
   type: CLEAR_NOTIFICATION
 });
 
+// Actions & Action Creators for Resetting AddPoint form
+export const RESET_ADD_POINT_FORM = 'RESET_ADD_POINT_FORM';
+
+export interface ResetAddPointFormAction {
+  type: typeof RESET_ADD_POINT_FORM;
+}
+
+export const resetAddPointForm = (): ResetAddPointFormAction => ({
+  type: RESET_ADD_POINT_FORM
+});
+
 // Exporting a union of all action types makes it easier for the reducer to switch on types
 export type ActionTypes =
   | AddPointAction
@@ -112,4 +123,5 @@ export type ActionTypes =
   | FetchPointsAction
   | FetchPointsSuccessAction
   | FetchPointsErrorAction
-  | ClearNotificationAction;
+  | ClearNotificationAction
+  | ResetAddPointFormAction;

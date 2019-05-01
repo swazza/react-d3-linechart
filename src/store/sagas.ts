@@ -11,7 +11,8 @@ import {
   addPointOptimisticSuccess,
   FetchPointsAction,
   AddPointAction,
-  clearNotification
+  clearNotification,
+  resetAddPointForm
 } from './actions';
 
 function* watchFetchPoints() {
@@ -46,6 +47,7 @@ function* watchAddPoint() {
     try {
       yield call(addPoint, payload);
       yield put(addPointSuccess(newPoints));
+      yield put(resetAddPointForm());
       yield delay(3000);
       yield put(clearNotification());
     } catch (err) {
