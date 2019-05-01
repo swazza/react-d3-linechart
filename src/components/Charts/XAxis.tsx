@@ -31,7 +31,7 @@ export default class XAxis extends React.Component<Props> {
       .attr('fill', 'black')
       .attr('transform', 'translate(300, 30)')
       .style('text-anchor', 'middle')
-      .text('Date & Time');
+      .text('Date & Time (UTC)');
   }
 
   render() {
