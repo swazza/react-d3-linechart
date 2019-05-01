@@ -1,6 +1,8 @@
 import React from 'react';
 import { extent } from 'd3-array';
 import { Point } from './contracts';
+import XAxis from './XAxis';
+import YAxis from './YAxis';
 import _LineChart from './LineChart';
 import _ScatterPlot from './ScatterPlot';
 
@@ -35,16 +37,20 @@ class Chart extends React.PureComponent<Props> {
       y: scaleY(selectorY(datum))
     }));
 
-    return scaledData;
+    return { scaledData, scaleX, scaleY };
   }
 
   render() {
     const { height, width, children } = this.props;
-    const scaledData = this.getScaledDataFromProps(this.props);
+    const { scaledData, scaleX, scaleY } = this.getScaledDataFromProps(
+      this.props
+    );
 
     return (
       <>
         <svg height={height.toString()} width={width.toString()}>
+          <XAxis scaleX={scaleX} vTransform={height - 20} />
+          <YAxis scaleY={scaleY} hTransform={20} />
           {React.Children.map(children, child =>
             React.cloneElement(child as React.ReactElement<any>, {
               data: scaledData
