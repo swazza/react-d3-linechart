@@ -8,8 +8,21 @@ import { Store } from './store';
 import Chart, { LineChart, ScatterPlot } from './components/Charts';
 
 interface Props {
+  /**
+   * Data needs to be displayed on the chart
+   */
   data: Point[];
+
+  /**
+   * Flag indicates if data is being fetched. If true, will display a LoaderOverlay on top of Chart. If false,
+   * will display the Chart.
+   */
   isFetchingPoints: boolean;
+
+  /**
+   * A non-empty string indicates an erro while fetching the data. Any error message will
+   * be displayed on top of the chart.
+   */
   fetchError: string;
 }
 

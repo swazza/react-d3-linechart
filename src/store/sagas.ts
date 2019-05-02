@@ -12,7 +12,7 @@ import {
   FetchPointsAction,
   AddPointAction,
   clearNotification,
-  resetAddPointForm
+  switchOffResetOnAddPointForm
 } from './actions';
 
 function* watchFetchPoints() {
@@ -47,7 +47,8 @@ function* watchAddPoint() {
     try {
       yield call(addPoint, payload);
       yield put(addPointSuccess(newPoints));
-      yield put(resetAddPointForm());
+      // this is required to switch off the reset flag on AddPointForm that is set when a point is added successfull
+      yield put(switchOffResetOnAddPointForm());
       yield delay(3000);
       yield put(clearNotification());
     } catch (err) {
@@ -65,6 +66,6 @@ export function* sagas() {
   try {
     yield all([watchFetchPoints(), watchAddPoint()]);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

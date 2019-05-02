@@ -8,7 +8,7 @@ import {
   FETCH_POINTS_ERROR,
   ADD_POINT_OPTIMISTIC_SUCCESS,
   CLEAR_NOTIFICATION,
-  RESET_ADD_POINT_FORM
+  SWITCH_OFF_RESET_ON_ADD_POINT_FORM
 } from './actions';
 import { Point } from '../components/Charts/Model';
 
@@ -76,7 +76,7 @@ const shouldClearAddPointForm = (
   switch (action.type) {
     case ADD_POINT_SUCCESS:
       return true;
-    case RESET_ADD_POINT_FORM:
+    case SWITCH_OFF_RESET_ON_ADD_POINT_FORM:
       return false;
     default:
       return state;
