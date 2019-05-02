@@ -1,20 +1,47 @@
 import React from 'react';
-import * as d3 from 'd3';
+import { select } from 'd3-selection';
 import Tooltip from './Tooltip';
-import { Point } from './contracts';
+import { Point } from './Model';
+
+/**
+ * Function representing the tooltip selector
+ */
+export type TooltipSelector = (datum: Point) => string;
 
 interface Props {
+  //**X-Coordinate of the Circle */
   cx: number;
+
+  /**Y-Coordinate of the Circle */
   cy: number;
+
+  /** Radius of the Circle */
   r: number;
+
+  /**Data Point from the original Data Collection passed to the
+   * Chart. This is required to derive information from the original data.
+   */
   datum: Point;
-  tooltipX: any;
-  tooltipY: any;
+
+  /**
+   * A function that is used to derive the tooltip label for the X-Coordinate
+   */
+  tooltipX: TooltipSelector;
+
+  /**
+   * A function that is used to derive the tooltip label for the Y-Coordinate
+   */
+  tooltipY: TooltipSelector;
 }
 
 interface State {
+  /**Flag controling display of tooltip. Flag is for duration of MouseHover. It is off on MouseExit */
   showTooltip: boolean;
+
+  /**X-Coordinate of where the tooltip has to be displayed for the circle */
   tooltipCX: number;
+
+  /**Y-Coordinate of where the tooltip has to be displayed for the circle */
   tooltipCY: number;
 }
 
@@ -35,8 +62,9 @@ export default class Circle extends React.Component<Props, State> {
     const { x, y } = e.target.getBoundingClientRect();
     this.setState({
       showTooltip: true,
-      tooltipCX: x,
-      tooltipCY: y
+      // Display tooltip to bottom right of the circle in a way that it does not overlap on the circle
+      tooltipCX: x + 2 * this.props.r,
+      tooltipCY: y + 2 * this.props.r
     });
   };
 
@@ -45,7 +73,9 @@ export default class Circle extends React.Component<Props, State> {
   };
 
   componentDidUpdate() {
-    const circle = d3.select(this.ref.current);
+    const circle = select(this.ref.current);
+
+    // Transitions the circle to new coordinates specified by props.cs & props.cy
     circle
       .transition()
       .duration(750)
@@ -54,7 +84,10 @@ export default class Circle extends React.Component<Props, State> {
   }
 
   componentDidMount() {
-    const circle = d3.select(this.ref.current);
+    const circle = select(this.ref.current);
+
+    // Renders circle at coordinates specified by props.cx & props.cy
+    // & transitions opacity from 0 (as specified in the JSX) to 1.
     circle
       .attr('cx', this.props.cx)
       .attr('cy', this.props.cy)
@@ -70,12 +103,15 @@ export default class Circle extends React.Component<Props, State> {
       <>
         {showTooltip && (
           <Tooltip
-            cx={tooltipCX + 2 * r}
-            cy={tooltipCY + 2 * r}
+            cx={tooltipCX}
+            cy={tooltipCY}
             x={tooltipX(datum)}
             y={tooltipY(datum)}
           />
         )}
+
+        {/* {cx & cy - coordinates are intentionally not specified 
+          as they need to be manipulated by d3 both during initial render and subsequent updates.} */}
         <circle
           ref={this.ref} // gets ref to the mounted DOMNode
           r={r} // radius

@@ -1,19 +1,30 @@
 import React from 'react';
-import * as d3 from 'd3';
-import { Point } from './contracts';
+import { transition } from 'd3-transition';
+import { line, curveLinear } from 'd3-shape';
+import { Point } from './Model';
 
 interface Props {
+  /**
+   * Original data that is passed to the containing Chart component
+   */
   data?: Point[];
+
+  /**
+   * Scaled data derived from Original data by applying scale functions. Scaled data is
+   * calculated in the containing Chart component and passed down to the LineChart
+   */
   scaledData?: Point[];
 }
 
-const lineGenerator = d3
-  .line()
+/**
+ * line function from d3-shapes that generates the SVG path string
+ */
+const lineGenerator = line()
   //@ts-ignore
-  .x(d => d.x)
+  .x(d => d.x) // d -> datum from scaled data
   //@ts-ignore
-  .y(d => d.y)
-  .curve(d3.curveLinear);
+  .y(d => d.y) // d -> datum from scaled data
+  .curve(curveLinear);
 
 export default class Line extends React.Component<Props> {
   private ref: React.RefObject<any>;
@@ -23,7 +34,7 @@ export default class Line extends React.Component<Props> {
   }
 
   componentDidUpdate() {
-    const path = d3.select(this.ref.current);
+    const path = transition().select(() => this.ref.current); // selection on transition requires a function to be passed to it instead of the DOMNode
     path
       .transition()
       .duration(750)
@@ -33,7 +44,7 @@ export default class Line extends React.Component<Props> {
   }
 
   componentDidMount() {
-    const path = d3.select(this.ref.current);
+    const path = transition().select(() => this.ref.current); // selection on transition requires a function to be passed to it instead of the DOMNode
     path
       // @ts-ignore
       .attr('d', lineGenerator(this.props.scaledData))

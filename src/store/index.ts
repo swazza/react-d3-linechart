@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { sagas } from './sagas';
 import { reducers } from './reducers';
-import { Point } from '../components/Charts/contracts';
+import { Point } from '../components/Charts/Model';
 
 export interface Store {
   points: Point[];

@@ -1,4 +1,4 @@
-import { Point } from '../components/Charts/contracts';
+import { Point } from '../components/Charts/Model';
 
 // Actions & Action Creators required for handling the side effects of HTTP POST /points
 export const ADD_POINT = 'ADD_POINT';

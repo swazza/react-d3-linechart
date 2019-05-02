@@ -1,4 +1,4 @@
-import { Point } from '../components/Charts/contracts';
+import { Point } from '../components/Charts/Model';
 
 export const fetchPoints = async () => {
   try {

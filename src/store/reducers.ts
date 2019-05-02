@@ -10,7 +10,7 @@ import {
   CLEAR_NOTIFICATION,
   RESET_ADD_POINT_FORM
 } from './actions';
-import { Point } from '../components/Charts/contracts';
+import { Point } from '../components/Charts/Model';
 
 const points = (state = [], action: ActionTypes): Point[] => {
   switch (action.type) {

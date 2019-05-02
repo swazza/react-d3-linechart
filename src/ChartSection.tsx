@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { scaleUtc, scaleLinear } from 'd3-scale';
 import moment from 'moment-timezone';
-import { Point } from './components/Charts/contracts';
+import { Point } from './components/Charts/Model';
 import LoaderOverlay from './components/LoaderOverlay';
 import { Store } from './store';
 import Chart, { LineChart, ScatterPlot } from './components/Charts';
