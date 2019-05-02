@@ -1,6 +1,5 @@
 import React from 'react';
 import * as d3 from 'd3';
-import TooltipPortal from './TooltipPortal';
 import Tooltip from './Tooltip';
 import { Point } from './contracts';
 
@@ -70,14 +69,12 @@ export default class Circle extends React.Component<Props, State> {
     return (
       <>
         {showTooltip && (
-          <TooltipPortal>
-            <Tooltip
-              cx={tooltipCX + 2 * r}
-              cy={tooltipCY + 2 * r}
-              x={tooltipX(datum)}
-              y={tooltipY(datum)}
-            />
-          </TooltipPortal>
+          <Tooltip
+            cx={tooltipCX + 2 * r}
+            cy={tooltipCY + 2 * r}
+            x={tooltipX(datum)}
+            y={tooltipY(datum)}
+          />
         )}
         <circle
           ref={this.ref} // gets ref to the mounted DOMNode
