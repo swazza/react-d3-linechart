@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import AddPointForm from './forms/AddPointForm';
-import LoadingOverlay from './components/LoadingOverlay';
+import LoaderOverlay from './components/LoaderOverlay';
 import { Store } from './store';
 import { addPoint } from './store/actions';
 
@@ -19,7 +19,7 @@ const AddPointSection: React.FC<Props> = ({
 }) => (
   <>
     <span style={{ color: 'red', fontSize: '0.8em' }}>{addError}</span>
-    <LoadingOverlay isLoading={isAddingPoint} />
+    <LoaderOverlay isLoading={isAddingPoint} />
     <AddPointForm onSubmit={addPoint} />
   </>
 );

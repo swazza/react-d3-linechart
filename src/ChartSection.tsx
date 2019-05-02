@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { scaleUtc, scaleLinear } from 'd3-scale';
 import moment from 'moment-timezone';
 import { Point } from './components/Charts/contracts';
-import LoadingOverlay from './components/LoadingOverlay';
+import LoaderOverlay from './components/LoaderOverlay';
 import { Store } from './store';
 import Chart, { LineChart, ScatterPlot } from './components/Charts';
 
@@ -20,7 +20,7 @@ const ChartSection: React.FC<Props> = ({
 }) => (
   <>
     <span style={{ color: 'red', fontSize: '0.8em' }}>{fetchError}</span>
-    <LoadingOverlay isLoading={isFetchingPoints} />
+    <LoaderOverlay isLoading={isFetchingPoints} />
     <Chart
       width={600}
       height={300}
