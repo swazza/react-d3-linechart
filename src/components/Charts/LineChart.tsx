@@ -13,7 +13,7 @@ const lineGenerator = d3
   .x(d => d.x)
   //@ts-ignore
   .y(d => d.y)
-  .curve(d3.curveCardinal);
+  .curve(d3.curveLinear);
 
 export default class Line extends React.Component<Props> {
   private ref: React.RefObject<any>;
