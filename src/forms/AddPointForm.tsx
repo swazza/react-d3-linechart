@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Store } from '../store';
 import { Form, Field } from 'react-final-form';
 
+import './AddPointForm.css';
+
 const required = (value: any) => (value ? undefined : 'Required');
 const mustBeNumber = (value: any) =>
   isNaN(value) ? 'Must be a number' : undefined;
@@ -29,55 +31,18 @@ const AddPointForm: React.FC<Props> = ({
   <Form
     onSubmit={onSubmit}
     render={({ handleSubmit, submitting, form }) => (
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          minWidth: '200px',
-          position: 'relative'
-        }}
-      >
+      <form onSubmit={handleSubmit}>
         {shouldClearAddPointForm && form.reset()}
-        <h2 style={{ marginRight: 'auto' }}>Add Point</h2>
+        <h2>Add Point</h2>
         <Field name="x" validate={composeValidators(required, mustBeISODate)}>
           {({ input, meta }) => (
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                marginTop: '2em'
-              }}
-            >
+            <div className="field">
               <label>ISO Date</label>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginLeft: 'auto',
-                  position: 'relative'
-                }}
-              >
+              <div className="input">
                 {meta.error && meta.touched && (
-                  <span
-                    style={{
-                      color: 'red',
-                      fontSize: '0.8em',
-                      position: 'absolute',
-                      top: '-1.1em'
-                    }}
-                  >
-                    {meta.error}
-                  </span>
+                  <span className="error">{meta.error}</span>
                 )}
-                <input
-                  {...input}
-                  type="text"
-                  placeholder="X"
-                  style={{ height: '2.5em' }}
-                />
+                <input {...input} type="text" placeholder="X" />
               </div>
             </div>
           )}
@@ -85,56 +50,19 @@ const AddPointForm: React.FC<Props> = ({
 
         <Field name="y" validate={composeValidators(required, mustBeNumber)}>
           {({ input, meta }) => (
-            <div
-              style={{
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '2em'
-              }}
-            >
+            <div className="field">
               <label>Value</label>
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginLeft: 'auto',
-                  position: 'relative'
-                }}
-              >
+              <div className="input">
                 {meta.error && meta.touched && (
-                  <span
-                    style={{
-                      color: 'red',
-                      fontSize: '0.8em',
-                      position: 'absolute',
-                      top: '-1.1em'
-                    }}
-                  >
-                    {meta.error}
-                  </span>
+                  <span className="error">{meta.error}</span>
                 )}
-                <input
-                  {...input}
-                  type="text"
-                  placeholder="Y"
-                  style={{ height: '2.5em' }}
-                />
+                <input {...input} type="text" placeholder="Y" />
               </div>
             </div>
           )}
         </Field>
 
-        <button
-          type="submit"
-          disabled={submitting}
-          style={{
-            marginTop: '5px',
-            height: '2.5em',
-            width: '50px',
-            marginLeft: 'auto'
-          }}
-        >
+        <button type="submit" disabled={submitting}>
           Add
         </button>
       </form>

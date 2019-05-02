@@ -1,0 +1,43 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 200px;
+  position: relative;
+}
+
+input {
+  height: 2.5em;
+}
+
+h2 {
+  margin-right: auto;
+}
+
+button[type='submit'] {
+  margin-top: 5px;
+  height: 2.5em;
+  width: 50px;
+  margin-left: auto;
+}
+
+.field {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-top: 2em;
+}
+
+.input {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  position: relative;
+}
+
+.error {
+  color: red;
+  font-size: 0.8em;
+  position: absolute;
+  top: -1.1em;
+}
