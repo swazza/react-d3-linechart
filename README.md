@@ -22,7 +22,7 @@ Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ## App Behaviour
-Once the app opens in the browser, you can expect a view similar the one below ![Screenshot](https://imgur.com/N3EafYo).
+Once the app opens in the browser, you can expect a view similar the one below ![Screenshot](https://i.ibb.co/CvP7Hrs/linegraph-what-to-expect.png).
 
 * Line chart is displayed on the right.
   + Initial data is fetched from the API
@@ -38,4 +38,4 @@ Once the app opens in the browser, you can expect a view similar the one below !
   + Non-Empty values are not accepted
   + Once the User hits the 'add' button, the Chart gets updated optimistically while the API call for the saving point happens
   + Should the API call be successful, the Chart continues in its current form and the Add Point form is reset
-  + Should the API call fail, the Add Point form continues to hold previously entered values and the Chart is reset to it's previous shape. An error message is also displayed prompting the user to resubmit.
+  + Should the API call fail, the Add Point form continues to hold previously entered values and the Chart is reset to it's previous shape. An error message is also displayed prompting the user to resubmit.  
