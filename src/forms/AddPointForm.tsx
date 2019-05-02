@@ -24,14 +24,14 @@ interface StoreProps {
 
 interface Props extends OwnProps, StoreProps {}
 
-const AddPointForm: React.FC<Props> = ({
+export const AddPointForm: React.FC<Props> = ({
   onSubmit,
   shouldClearAddPointForm
 }) => (
   <Form
     onSubmit={onSubmit}
     render={({ handleSubmit, submitting, form }) => (
-      <form onSubmit={handleSubmit}>
+      <form data-testid="add-point-form" onSubmit={handleSubmit}>
         {shouldClearAddPointForm && form.reset()}
         <h2>Add Point</h2>
         <Field name="x" validate={composeValidators(required, mustBeISODate)}>
@@ -42,7 +42,7 @@ const AddPointForm: React.FC<Props> = ({
                 {meta.error && meta.touched && (
                   <span className="error">{meta.error}</span>
                 )}
-                <input {...input} type="text" placeholder="X" />
+                <input data-testid="x" {...input} type="text" placeholder="X" />
               </div>
             </div>
           )}
@@ -56,7 +56,7 @@ const AddPointForm: React.FC<Props> = ({
                 {meta.error && meta.touched && (
                   <span className="error">{meta.error}</span>
                 )}
-                <input {...input} type="text" placeholder="Y" />
+                <input data-testid="y" {...input} type="text" placeholder="Y" />
               </div>
             </div>
           )}
